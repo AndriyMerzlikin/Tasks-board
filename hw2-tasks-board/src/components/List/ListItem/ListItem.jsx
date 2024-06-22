@@ -1,23 +1,7 @@
+/* eslint-disable react/prop-types */
 import Button from "./Button/Button";
 import { Item } from "./ListItem.styled";
 
-/* eslint-disable react/prop-types */
-// const ListItem = ({ item, status, handleDelete, handleInProgress }) => {
-//   const { title } = item;
-
-//   return (
-//     <Item>
-//       <p>{title}</p>
-//       <Button
-//         handleDelete={handleDelete}
-//         handleInProgress={handleInProgress}
-//         status={status}
-//       />
-//     </Item>
-//   );
-// };
-
-// export default ListItem;
 const ListItem = ({ item, status, updateTaskStatus, handleDelete }) => {
   const { id, title } = item;
 

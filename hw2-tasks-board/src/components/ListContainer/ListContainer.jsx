@@ -6,9 +6,20 @@ import {
   STATUS_DONE,
 } from "../../constants/statusConstants";
 import { useState } from "react";
+import { Container } from "./ListContainer.styled";
 
 const ListContainer = ({ list: initialList = [] }) => {
   const [taskList, setTaskList] = useState(initialList);
+
+  const todoList = taskList.filter(
+    (item) => item.status === STATUS_TODO.status
+  );
+  const inProgressList = taskList.filter(
+    (item) => item.status === STATUS_IN_PROGRESS.status
+  );
+  const doneList = taskList.filter(
+    (item) => item.status === STATUS_DONE.status
+  );
 
   const updateTaskStatus = (id, newStatus) => {
     setTaskList((prevList) =>
@@ -23,24 +34,24 @@ const ListContainer = ({ list: initialList = [] }) => {
   };
 
   return (
-    <div className="app-container">
+    <Container>
       <List
-        list={taskList}
+        list={todoList}
         status={STATUS_TODO}
         updateTaskStatus={updateTaskStatus}
       />
       <List
-        list={taskList}
+        list={inProgressList}
         status={STATUS_IN_PROGRESS}
         updateTaskStatus={updateTaskStatus}
       />
       <List
-        list={taskList}
+        list={doneList}
         status={STATUS_DONE}
         updateTaskStatus={updateTaskStatus}
         handleDeleteTask={handleDeleteTask}
       />
-    </div>
+    </Container>
   );
 };
 
