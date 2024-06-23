@@ -26,15 +26,9 @@ const ListContainer = () => {
     fetchTasks();
   }, []);
 
-  const todoList = taskList.filter(
-    (item) => item.status === STATUS_TODO.status
-  );
-  const inProgressList = taskList.filter(
-    (item) => item.status === STATUS_IN_PROGRESS.status
-  );
-  const doneList = taskList.filter(
-    (item) => item.status === STATUS_DONE.status
-  );
+  const filterTasksByStatus = (status) => {
+    return taskList.filter((item) => item.status === status);
+  };
 
   const updateTaskStatus = (id, newStatus) => {
     setTaskList((prevState) =>
@@ -51,17 +45,17 @@ const ListContainer = () => {
   return (
     <Container>
       <List
-        list={todoList}
+        list={filterTasksByStatus(STATUS_TODO.status)}
         status={STATUS_TODO}
         updateTaskStatus={updateTaskStatus}
       />
       <List
-        list={inProgressList}
+        list={filterTasksByStatus(STATUS_IN_PROGRESS.status)}
         status={STATUS_IN_PROGRESS}
         updateTaskStatus={updateTaskStatus}
       />
       <List
-        list={doneList}
+        list={filterTasksByStatus(STATUS_DONE.status)}
         status={STATUS_DONE}
         updateTaskStatus={updateTaskStatus}
         handleDeleteTask={handleDeleteTask}
