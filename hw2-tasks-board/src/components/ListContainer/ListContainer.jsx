@@ -5,11 +5,26 @@ import {
   STATUS_IN_PROGRESS,
   STATUS_DONE,
 } from "../../constants/statusConstants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Container } from "./ListContainer.styled";
 
-const ListContainer = ({ list: initialList = [] }) => {
-  const [taskList, setTaskList] = useState(initialList);
+const ListContainer = () => {
+  const [taskList, setTaskList] = useState([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get(
+          "https://6675570ea8d2b4d072efa0bb.mockapi.io/tasks"
+        );
+        setTaskList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTasks();
+  }, []);
 
   const todoList = taskList.filter(
     (item) => item.status === STATUS_TODO.status
@@ -22,15 +37,15 @@ const ListContainer = ({ list: initialList = [] }) => {
   );
 
   const updateTaskStatus = (id, newStatus) => {
-    setTaskList((prevList) =>
-      prevList.map((task) =>
+    setTaskList((prevState) =>
+      prevState.map((task) =>
         task.id === id ? { ...task, status: newStatus } : task
       )
     );
   };
 
   const handleDeleteTask = (id) => {
-    setTaskList((prevList) => prevList.filter((task) => task.id !== id));
+    setTaskList((prevState) => prevState.filter((task) => task.id !== id));
   };
 
   return (

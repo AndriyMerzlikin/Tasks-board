@@ -2,7 +2,14 @@
 import { ListBox, Title, Wrapper } from "./List.styled";
 import ListItem from "./ListItem/ListItem";
 
-const List = ({ list, status, updateTaskStatus, handleDeleteTask }) => {
+const List = ({
+  list,
+  status,
+  updateTaskStatus,
+  handleDeleteTask,
+  handleButtonClick,
+}) => {
+
   return (
     <Wrapper>
       <Title>
@@ -18,6 +25,7 @@ const List = ({ list, status, updateTaskStatus, handleDeleteTask }) => {
               item={item}
               status={status}
               updateTaskStatus={updateTaskStatus}
+              handleButtonClick={handleButtonClick}
               handleDelete={handleDeleteTask}
             />
           ))}
